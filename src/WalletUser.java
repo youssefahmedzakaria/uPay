@@ -1,11 +1,5 @@
 public class WalletUser extends User {
 
-    public enum WalletType {
-        MOBILE_WALLET,
-        BANK_WALLET,
-        ELECTRONIC_PAYMENT_WALLET
-    }
-
     private WalletType walletId;
 
     public WalletUser(String username, String password, float balance, int pin, WalletType walletId) {
@@ -30,5 +24,11 @@ public class WalletUser extends User {
 
     public void setWalletId(WalletType walletId) {
         this.walletId = walletId;
+    }
+
+    public enum WalletType {
+        MOBILE_WALLET,
+        BANK_WALLET,
+        ELECTRONIC_PAYMENT_WALLET
     }
 }

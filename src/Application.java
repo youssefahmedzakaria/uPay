@@ -11,7 +11,7 @@ public class Application {
         this.otpConfirmation = new OTPConfirmation();
     }
 
-    // Methods
+
     public boolean login(String username, String password) {
         // Implement login logic here
         return authenticationService.verifyLogin(username, password);
