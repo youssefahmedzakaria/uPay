@@ -1,4 +1,5 @@
-import User.*;
+import User.User;
+import User.WalletUser;
 
 public class Application {
 
@@ -26,14 +27,12 @@ public class Application {
 
 
     public static void main(String[] args) {
-        Application instaPay = new Application();
-        instaPay.userInterface.loginMenu();
+//        instaPay instaPay = new instaPay();
+//        instaPay.userInterface.loginMenu();
         System.out.println("ana msh 3aref a3ml eh");
-
-        User userw = new WalletUser("ahmed", "1234", 1000, 1234, User.userType.WalletUser, WalletUser.WalletType.MOBILE_WALLET);
-        WalletUser.main(args);
-
-        User userb = new BankUser("ahmed", "1234", 1000, 1234, User.userType.BankUser, "CIB", 123456789, "12/12/2020");
-        BankUser.main(args);
+        User user = new WalletUser("ahmed", "1234", 1000, 1234, User.userType.WalletUser, WalletUser.WalletType.BANK_WALLET);
+        Transactions transact = new Transactions(user);
     }
+
+
 }
