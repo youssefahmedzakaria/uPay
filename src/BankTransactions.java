@@ -17,7 +17,6 @@ public class BankTransactions {
                 System.out.println(amount + " transferred successfully to " + accountCode + ". Your balance: " + bankUser.getBalance());
             } else {
                 System.out.println("Your balance is insufficient.");
-
             }
         } else {
             System.out.println("Invalid Pin");
