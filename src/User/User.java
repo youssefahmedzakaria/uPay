@@ -4,44 +4,20 @@ package User;
 public abstract class User {
     protected String username;
     protected String password;
-    protected double balance;
+    protected int phoneNum;
     protected int pin;
-    private userType userType;
+    private String accountType;
 
-    public User(String username, String password, float balance, int pin, userType userType) {
+    public User(String username, String password, int phoneNum, int pin, String accountType) {
         this.username = username;
         this.password = password;
-        this.balance = balance;
+        this.phoneNum = phoneNum;
         this.pin = pin;
-        this.userType = userType;
+        this.accountType = accountType;
     }
 
-
-    public enum userType {
-        BankUser,
-        WalletUser
-    }
 
     public abstract void changePIN(int newPin);
-
-    public abstract void makePayment(double ammount);
-
-    public void setPin(int pin) {
-        this.pin = pin;
-    }
-
-    public int getPin() {
-        return pin;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
 
     public void setUsername(String username) {
         this.username = username;
@@ -59,5 +35,27 @@ public abstract class User {
         return password;
     }
 
+    public void setPin(int pin) {
+        this.pin = pin;
+    }
 
+    public int getPin() {
+        return pin;
+    }
+
+    public void setPhoneNum(int phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public int getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
 }

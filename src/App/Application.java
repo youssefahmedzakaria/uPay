@@ -1,5 +1,4 @@
 package App;
-
 import Payment.*;
 import User.*;
 public class Application {
@@ -31,9 +30,5 @@ public class Application {
 //        instaPay instaPay = new instaPay();
 //        instaPay.userInterface.loginMenu();
         System.out.println("ana msh 3aref a3ml eh");
-        User user = new WalletUser("ahmed", "1234", 1000, 1234, User.userType.WalletUser, WalletUser.WalletType.BANK_WALLET);
-        Transactions transact = new Transactions(user);
     }
-
-
 }

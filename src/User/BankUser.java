@@ -1,16 +1,46 @@
 package User;
 
 public class BankUser extends User {
-    private String bankName;
-    private int cardNum;
+    private String cardNum;
     private String expiryDate;
+    private String accountNum;
 
-    public BankUser(String username, String password, float balance, int pin, User.userType userType, String bankName, int cardNum, String expiryDate) {
-        super(username, password, balance, pin, userType);
-        this.bankName = bankName;
+    Bank bank;
+
+    public BankUser(String username, String passsword, int phoneNum, int pin, String accountType, String cardNum, String expiryDate, String accountNum, Bank bank) {
+        super(username, passsword, phoneNum, pin, accountType);
         this.cardNum = cardNum;
         this.expiryDate = expiryDate;
+        this.accountNum = accountNum;
+        this.bank = bank;
     }
+
+
+
+    public void setCardNum(String cardNum) {
+        this.cardNum = cardNum;
+    }
+
+    public String getCardNum() {
+        return cardNum;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setAccountNum(String accountNum) {
+        this.accountNum = accountNum;
+    }
+
+    public String getAccountNum() {
+        return accountNum;
+    }
+
 
     public void changePIN(int newPin) {
         setPin(newPin);
@@ -19,42 +49,16 @@ public class BankUser extends User {
     }
 
 
-    @Override
-    public void makePayment(double paymentAmount) {
-        if (getBalance() >= paymentAmount) {
-            setBalance(getBalance() - paymentAmount);
-            System.out.println("Payment successful. Remaining balance: " + getBalance());
-        } else {
-            System.out.println("Insufficient funds for the payment.");
-        }
+    public double checkBankBalance() {
+        return bank.getBalance();
     }
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
-    }
-    public String getBankName() {
-
-        return bankName;
+    public void setNewBankBalance(double newBalance) {
+        bank.setBalance(newBalance);
     }
 
-    public void setCardNum(int cardNum) {
-        this.cardNum = cardNum;
-    }
-    public int getCardNum() {
-
-        return cardNum;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-    public String getExpiryDate() {
-        return expiryDate;
-    }
 
     public static void main(String[] args) {
         System.out.println("test bank class");
     }
-
-
 }
