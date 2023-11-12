@@ -1,3 +1,5 @@
+package App;
+
 import java.text.DecimalFormat;
 import java.util.Random;
 

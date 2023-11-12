@@ -1,6 +1,9 @@
+package Payment;
+
 import java.util.Date;
-import java.util.Random;
 import java.util.Scanner;
+
+import Payment.Bills;
 import User.*;
 
 public class WaterBill extends Bills {

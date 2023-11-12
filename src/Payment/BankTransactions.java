@@ -1,9 +1,11 @@
+package Payment;
+
 import User.*;
 
 public class BankTransactions {
     BankUser bankUser;
 
-    // Constructor for BankTransactions class
+    // Constructor for Payment.BankTransactions class
     public BankTransactions(BankUser bankUser) {
         this.bankUser = bankUser;
 

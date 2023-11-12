@@ -1,3 +1,5 @@
+package Payment;
+
 import User.*;
 public class Transactions {
     User user;

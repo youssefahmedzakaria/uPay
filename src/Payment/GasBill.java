@@ -1,5 +1,8 @@
+package Payment;
+
 import java.util.Date;
 import java.util.Scanner;
+
 import User.*;
 
 public class GasBill extends Bills {

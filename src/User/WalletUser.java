@@ -2,8 +2,9 @@ package User;
 
 import User.User;
 
-public class WalletUser extends User {
+import java.util.ArrayList;
 
+public class WalletUser extends User {
     private WalletType walletId;
 
     public WalletUser(String username, String password, float balance, int pin, userType userType, WalletType walletId) {

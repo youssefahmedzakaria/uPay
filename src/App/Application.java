@@ -1,6 +1,7 @@
-import User.User;
-import User.WalletUser;
+package App;
 
+import Payment.*;
+import User.*;
 public class Application {
 
     private UI userInterface;
