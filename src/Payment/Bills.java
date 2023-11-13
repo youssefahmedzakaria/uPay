@@ -39,9 +39,23 @@ public abstract class Bills {
     public Date getDate() {return date;}
     public double getPrevRead() {return prevRead;}
     public double getCurrentRead() {return currentRead;}
-    public abstract void getePaymentCode(double prevRead, double currentRead);
 
+    public void getePaymentCode(double prevRead, double currentRead){
+        // Implementation for getting an ePayment code
+        setPrevRead(prevRead);
+        setCurrentRead(currentRead);
+        String ePaymentCode = "EG" + (int) (Math.random() * 1000000);
+        setePaymentCode(ePaymentCode);
+        System.out.println("ePayment code: " + ePaymentCode);
+    }
+    final void payingBill(){
+        getePaymentCode(prevRead, currentRead);
+        payBill();
+        printBill();
+    }
     public abstract void payBill();
+    public abstract void printBill();
+
 
 
 }

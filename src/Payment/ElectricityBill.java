@@ -15,22 +15,13 @@ public class ElectricityBill extends Bills {
     }
     public void setConsumedElectricity(double consumedElectricity) {this.consumedElectricity = consumedElectricity;}
     @Override
-    public void getePaymentCode(double prevRead, double currentRead){
-        // Implementation for getting an ePayment code
-        setPrevRead(prevRead);
-        setCurrentRead(currentRead);
-        double consumedElectricity = currentRead - prevRead;
-        setConsumedElectricity(consumedElectricity);
-        String ePaymentCode = "EG" + (int) (Math.random() * 1000000);
-        setePaymentCode(ePaymentCode);
-        System.out.println("ePayment code: " + ePaymentCode);
-    }
-    @Override
     public void payBill(){
         // Implementation for paying a gas bill
         System.out.println("Enter your ePayment code: ");
         Scanner s  = new Scanner(System.in);
         String ePaymentCode = s.nextLine();
+        double consumedElectricity = currentRead - prevRead;
+        setConsumedElectricity(consumedElectricity);
         if(ePaymentCode == this.getePaymentCode()){
             double bill = this.getConsumedElectricity() * this.getPrice() + this.getFees();
             System.out.println("Your electricity bill is: " + bill);
@@ -50,7 +41,18 @@ public class ElectricityBill extends Bills {
             System.out.println("Invalid ePayment code.");
         }
     }
-
+    @Override
+    public void printBill(){
+        // Implementation for printing a gas bill
+        System.out.println("Name: " + this.getName());
+        System.out.println("Address: " + this.getAddress());
+        System.out.println("Price: " + this.getPrice());
+        System.out.println("Fees: " + this.getFees());
+        System.out.println("Date: " + this.getDate());
+        System.out.println("Previous Read: " + this.getPrevRead());
+        System.out.println("Current Read: " + this.getCurrentRead());
+        System.out.println("Consumed Electricity: " + this.getConsumedElectricity());
+    }
     public double getConsumedElectricity() {
         return consumedElectricity;
     }

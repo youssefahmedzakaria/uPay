@@ -16,24 +16,15 @@ public class GasBill extends Bills {
     public double getConsumedGas() {
         return consumedGas;
     }
-    @Override
-    public void getePaymentCode(double prevRead, double currentRead){
-        // Implementation for getting an ePayment code
-        setPrevRead(prevRead);
-        setCurrentRead(currentRead);
-        double consumedGas = currentRead - prevRead;
-        setConsumedGas(consumedGas);
-        String ePaymentCode = "EG" + (int) (Math.random() * 1000000);
-        setePaymentCode(ePaymentCode);
-        System.out.println("ePayment code: " + ePaymentCode);
-    }
 
     @Override
     public void payBill(){
-    // Implementation for paying a gas bill
+        // Implementation for paying a gas bill
         System.out.println("Enter your ePayment code: ");
         Scanner s  = new Scanner(System.in);
         String ePaymentCode = s.nextLine();
+        double consumedGas = currentRead - prevRead;
+        setConsumedGas(consumedGas);
         if(ePaymentCode.equals(this.getePaymentCode())){
             double bill = this.getConsumedGas() * this.getPrice() + this.getFees();
             System.out.println("Your gas bill is: " + bill);
@@ -56,6 +47,22 @@ public class GasBill extends Bills {
             System.out.println("Invalid ePayment code.");
         }
     }
+    @Override
+    public void printBill(){
+        // Implementation for printing a gas bill
+        System.out.println("Name: " + this.getName());
+        System.out.println("Address: " + this.getAddress());
+        System.out.println("Price: " + this.getPrice());
+        System.out.println("Fees: " + this.getFees());
+        System.out.println("Date: " + this.getDate());
+        System.out.println("Previous Read: " + this.getPrevRead());
+        System.out.println("Current Read: " + this.getCurrentRead());
+        System.out.println("Consumed Gas: " + this.getConsumedGas());
+        System.out.println("ePayment Code: " + this.getePaymentCode());
+    }
+
+
+
 
     public static void main(String[] args){
         User user = new WalletUser("ahmed", "1234", 100000, 1234, User.userType.WalletUser, WalletUser.WalletType.BANK_WALLET);
