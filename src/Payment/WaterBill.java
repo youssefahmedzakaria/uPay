@@ -46,6 +46,7 @@ public class WaterBill extends Bills {
     @Override
     public void printBill(){
         // Implementation for printing a water bill
+        System.out.println("Water Bill Details: ");
         System.out.println("Name: " + this.getName());
         System.out.println("Address: " + this.getAddress());
         System.out.println("Price: " + this.getPrice());

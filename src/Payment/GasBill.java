@@ -50,6 +50,7 @@ public class GasBill extends Bills {
     @Override
     public void printBill(){
         // Implementation for printing a gas bill
+        System.out.println("Gas Bill Details: ");
         System.out.println("Name: " + this.getName());
         System.out.println("Address: " + this.getAddress());
         System.out.println("Price: " + this.getPrice());
