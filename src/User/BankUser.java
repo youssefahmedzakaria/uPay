@@ -55,7 +55,6 @@ public class BankUser extends User {
 
     @Override
     public double inquireBalance()  {
-
         return bank.getBalance();
     }
     @Override

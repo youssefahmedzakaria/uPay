@@ -1,23 +1,16 @@
 package User;
 
-public class ePaymentWallet extends WalletProvider{
+public class ePaymentWallet extends WalletProvider {
+
     private String providerName;
-    private double balance;
-    private String providerType;
 
-    public ePaymentWallet(String providerName, double balance, String providerType) {
+    public ePaymentWallet(double balance, String providerType,String providerName) {
+        super(balance, providerType);
         this.providerName = providerName;
-        this.balance = balance;
-        this.providerType = providerType;
-    }
-
-    public ePaymentWallet() {
-        this.providerName = "";
-        this.balance = 0;
-        this.providerType = "";
     }
 
     public void setProviderName(String providerName) {
+
         this.providerName = providerName;
     }
 
@@ -25,22 +18,7 @@ public class ePaymentWallet extends WalletProvider{
         return providerName;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setProviderType(String providerType) {
-        this.providerType = providerType;
-    }
-
-    public String getProviderType() {
-        return providerType;
-    }
-
+    @Override
     public boolean validateAPI(String API) {
         return true;
     }

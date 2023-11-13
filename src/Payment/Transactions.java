@@ -1,8 +1,12 @@
 package Payment;
 
 import User.*;
+
+import java.util.Scanner;
+
 public class Transactions {
     User user;
+
     public Transactions(User user) {
         this.user = user;
     }
@@ -44,12 +48,16 @@ public class Transactions {
         }
     }
 
+
+
+
     public static void main(String[] args) {
         User user = new BankUser("username", "password", 123456789, 1234, "bank", "123456789", "12/12/2020", "123456789", new Bank("bank", 100000));
         Transactions transact = new Transactions(user);
         transact.transferToWalletMobileNum(100, "01111111111", 1234);
-
     }
 }
+
+
 
 
