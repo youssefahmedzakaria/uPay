@@ -31,9 +31,9 @@ public class GasBill extends Bills {
             System.out.println("Enter your pin: ");
             int pin = s.nextInt();
             if(pin == user.getPin()){
-                if(user.getBalance() >= bill ){
-                    user.setBalance(user.getBalance() - bill);
-                    System.out.println("Gas Bill Paid Successfully. Your balance is: " + user.getBalance());
+                if(user.inquireBalance() >= bill ){
+                    user.setNewBalance(user.inquireBalance() - bill);
+                    System.out.println("Gas Bill Paid Successfully. Your balance is: " + user.inquireBalance());
                 }
                 else{
                     System.out.println("Your balance is insufficient.");
@@ -65,10 +65,10 @@ public class GasBill extends Bills {
 
 
 
-    public static void main(String[] args){
-        User user = new WalletUser("ahmed", "1234", 100000, 1234, User.userType.WalletUser, WalletUser.WalletType.BANK_WALLET);
-        GasBill gasBill = new GasBill("Ahmed", "Cairo", 100, 10, new Date(), 100, 200, 100, user);
-        gasBill.getePaymentCode(100, 200);
-        gasBill.payBill();
-    }
+//    public static void main(String[] args){
+//        User user = new WalletUser("ahmed", "1234", 100000, 1234, User.userType.WalletUser, WalletUser.WalletType.BANK_WALLET);
+//        GasBill gasBill = new GasBill("Ahmed", "Cairo", 100, 10, new Date(), 100, 200, 100, user);
+//        gasBill.getePaymentCode(100, 200);
+//        gasBill.payBill();
+//    }
 }

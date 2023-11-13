@@ -8,12 +8,22 @@ public abstract class User {
     protected int pin;
     private String accountType;
 
+
+
     public User(String username, String password, int phoneNum, int pin, String accountType) {
         this.username = username;
         this.password = password;
         this.phoneNum = phoneNum;
         this.pin = pin;
         this.accountType = accountType;
+    }
+
+    public User() {
+        this.username = "";
+        this.password = "";
+        this.phoneNum = 0;
+        this.pin = 0;
+        this.accountType = "";
     }
 
 
@@ -46,6 +56,10 @@ public abstract class User {
     public void setPhoneNum(int phoneNum) {
         this.phoneNum = phoneNum;
     }
+
+    public abstract double inquireBalance();
+
+    public abstract void setNewBalance(double newBalance);
 
     public int getPhoneNum() {
         return phoneNum;

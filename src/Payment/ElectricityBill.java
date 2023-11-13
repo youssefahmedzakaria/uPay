@@ -28,9 +28,9 @@ public class ElectricityBill extends Bills {
             System.out.println("Enter your pin: ");
             int pin = s.nextInt();
             if(pin == user.getPin()){
-                if(user.getBalance() >= bill ){
-                    user.setBalance(user.getBalance() - bill);
-                    System.out.println("Electricity Bill Paid Successfully. Your balance is: " + user.getBalance());
+                if(user.inquireBalance() >= bill ){
+                    user.setNewBalance(user.inquireBalance() - bill);
+                    System.out.println("Electricity Bill Paid Successfully. Your balance is: " + user.inquireBalance());
                 }
                 else{
                     System.out.println("Your balance is insufficient.");

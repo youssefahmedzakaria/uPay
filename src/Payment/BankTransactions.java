@@ -14,9 +14,9 @@ public class BankTransactions {
     public void transferToBankAccountCode(String accountCode, double amount, int pin) {
         // Override this method if there's additional logic specific to bank transactions
         if (pin == bankUser.getPin()) {
-            if (bankUser.checkBankBalance() >= amount) {
-                bankUser.setNewBankBalance(bankUser.checkBankBalance() - amount);
-                System.out.println(amount + " transferred successfully to " + accountCode + ". Your balance: " + bankUser.checkBankBalance());
+            if (bankUser.inquireBalance() >= amount) {
+                bankUser.setNewBalance(bankUser.inquireBalance() - amount);
+                System.out.println(amount + " transferred successfully to " + accountCode + ". Your balance: " + bankUser.inquireBalance());
             } else {
                 System.out.println("Your balance is insufficient.");
             }
@@ -26,9 +26,8 @@ public class BankTransactions {
     }
 
     public static void main(String[] args) {
-        BankUser bankUser = new BankUser("ahmed", "1234", 1000, 1234, User.userType.BankUser, "CIB", 123456789, "12/22");
-        BankTransactions bankTransact = new BankTransactions(bankUser);
-        bankTransact.transferToBankAccountCode("123456789", 100, 1233);
-
+        User user = new BankUser("username", "password", 123456789, 1234, "bank", "123456789", "12/12/2020", "123456789", new Bank("bank", 100000));
+        BankTransactions bankTransactions = new BankTransactions((BankUser) user);
+        bankTransactions.transferToBankAccountCode("123456789", 1000, 1234);
     }
 }

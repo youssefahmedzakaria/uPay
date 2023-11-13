@@ -27,8 +27,6 @@ public class Application {
 
 
     public static void main(String[] args) {
-//        instaPay instaPay = new instaPay();
-//        instaPay.userInterface.loginMenu();
-        System.out.println("ana msh 3aref a3ml eh");
+
     }
 }

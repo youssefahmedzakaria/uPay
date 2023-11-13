@@ -18,26 +18,32 @@ public class BankUser extends User {
 
 
     public void setCardNum(String cardNum) {
+
         this.cardNum = cardNum;
     }
 
     public String getCardNum() {
+
         return cardNum;
     }
 
     public void setExpiryDate(String expiryDate) {
+
         this.expiryDate = expiryDate;
     }
 
     public String getExpiryDate() {
+
         return expiryDate;
     }
 
     public void setAccountNum(String accountNum) {
+
         this.accountNum = accountNum;
     }
 
     public String getAccountNum() {
+
         return accountNum;
     }
 
@@ -45,15 +51,16 @@ public class BankUser extends User {
     public void changePIN(int newPin) {
         setPin(newPin);
         System.out.println("PIN changed successfully");
-
     }
 
+    @Override
+    public double inquireBalance()  {
 
-    public double checkBankBalance() {
         return bank.getBalance();
     }
+    @Override
+    public void setNewBalance(double newBalance){
 
-    public void setNewBankBalance(double newBalance) {
         bank.setBalance(newBalance);
     }
 

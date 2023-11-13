@@ -18,6 +18,7 @@ public class WalletProvider {
     }
 
     public void setProviderName(String providerName) {
+
         this.providerName = providerName;
     }
 
@@ -30,6 +31,7 @@ public class WalletProvider {
     }
 
     public double getBalance() {
+
         return balance;
     }
 
