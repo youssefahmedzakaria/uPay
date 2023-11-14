@@ -29,28 +29,30 @@ public class transferToWallet extends Transferrations {
         System.out.println("Enter mobile number you want to transfer money to: ");
         Scanner sc = new Scanner(System.in);
         String mobileNum = sc.nextLine();
-         long mobile = Integer.parseInt(mobileNum);
+        long mobile = Integer.parseInt(mobileNum);
         if (isPhoneValid(mobileNum)) {
             System.out.println("Enter Your Pin: ");
             int pin = sc.nextInt();
             if (pin == user.getPin()) {
-                if (user.inquireBalance() >= amount) {
-                    user.setNewBalance(user.inquireBalance() - amount);
-                    for (WalletUser walletUser : listOfWalletUser) {
-                        if (walletUser.getPhoneNum() == mobile) {
-                            walletUser.setNewBalance(walletUser.inquireBalance() + amount);
-                            System.out.println(amount + " added to: " + walletUser.getPhoneNum());
+                if (bank.checkBalance() || walletProvider.checkBalance()) {
+                    if (user.inquireBalance() >= amount) {
+                        user.setNewBalance(user.inquireBalance() - amount);
+                        for (WalletUser walletUser : listOfWalletUser) {
+                            if (walletUser.getPhoneNum() == mobile) {
+                                walletUser.setNewBalance(walletUser.inquireBalance() + amount);
+                                System.out.println(amount + " added to: " + walletUser.getPhoneNum());
+                            }
                         }
+                        System.out.println(amount + " transferred successfully to " + mobileNum + ". Your balance: " + user.inquireBalance());
+                    } else {
+                        System.out.println("Your balance is insufficient.");
                     }
-                    System.out.println(amount + " transferred successfully to " + mobileNum + ". Your balance: " + user.inquireBalance());
                 } else {
-                    System.out.println("Your balance is insufficient.");
+                    System.out.println("Invalid Pin");
                 }
             } else {
-                System.out.println("Invalid Pin");
+                System.out.println("Invalid mobile number");
             }
-        } else {
-            System.out.println("Invalid mobile number");
         }
     }
 

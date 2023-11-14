@@ -22,19 +22,21 @@ public class transferToInstapayAcc extends Transferrations {
                 System.out.println("Enter Your Pin: ");
                 int pin = sc.nextInt();
                 if (pin == user.getPin()) {
-                    if (this.user.inquireBalance() >= amount) {
-                        this.user.setNewBalance(this.user.inquireBalance() - amount);
-                        user.setNewBalance(user.inquireBalance() + amount);
-                        System.out.println(amount + " transferred successfully to " + username + ". Your balance: " + this.user.inquireBalance());
-                        break;
+                    if (bank.checkBalance() || walletProvider.checkBalance()) {
+                        if (this.user.inquireBalance() >= amount) {
+                            this.user.setNewBalance(this.user.inquireBalance() - amount);
+                            user.setNewBalance(user.inquireBalance() + amount);
+                            System.out.println(amount + " transferred successfully to " + username + ". Your balance: " + this.user.inquireBalance());
+                            break;
+                        } else {
+                            System.out.println("Your balance is insufficient.");
+                        }
                     } else {
-                        System.out.println("Your balance is insufficient.");
+                        System.out.println("Invalid Pin");
                     }
                 } else {
-                    System.out.println("Invalid Pin");
+                    System.out.println("Username does not exist.");
                 }
-            } else {
-                System.out.println("Username does not exist.");
             }
         }
     }

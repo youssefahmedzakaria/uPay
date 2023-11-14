@@ -36,4 +36,7 @@ public class Bank {
     public boolean validateAPI(String API) {
         return true;
     }
+    public boolean checkBalance(){
+        return true;
+    }
 }

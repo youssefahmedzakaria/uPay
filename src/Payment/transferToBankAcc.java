@@ -22,6 +22,7 @@ public class transferToBankAcc extends Transferrations {
             System.out.println("Enter Your Pin: ");
             int pin = sc.nextInt();
             if (pin == user.getPin()) {
+                if(bank.checkBalance()){
                 if (user.inquireBalance() >= amount) {
                     user.setNewBalance(user.inquireBalance() - amount);
                     for (BankUser bankUser : listOfBankUser) {
@@ -41,6 +42,8 @@ public class transferToBankAcc extends Transferrations {
         else {
             System.out.println("Account Number is invalid");
         }
+    }
+
     }
     public static void main(String[] args) {
         Database database = new Database();

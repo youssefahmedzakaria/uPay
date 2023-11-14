@@ -45,4 +45,7 @@ public abstract class WalletProvider {
     }
 
     public abstract boolean validateAPI(String API);
+    public boolean checkBalance(){
+        return true;
+    }
 }
