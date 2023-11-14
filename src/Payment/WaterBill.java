@@ -41,7 +41,6 @@ public class WaterBill extends Bills {
         else{
             System.out.println("Invalid ePayment code.");
         }
-
     }
     @Override
     public void printBill(){

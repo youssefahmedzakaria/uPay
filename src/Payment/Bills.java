@@ -40,7 +40,7 @@ public abstract class Bills {
     public double getPrevRead() {return prevRead;}
     public double getCurrentRead() {return currentRead;}
 
-    public void getePaymentCode(double prevRead, double currentRead){
+    public void generateEPaymentCode(double prevRead, double currentRead){
         // Implementation for getting an ePayment code
         setPrevRead(prevRead);
         setCurrentRead(currentRead);
@@ -49,7 +49,7 @@ public abstract class Bills {
         System.out.println("ePayment code: " + ePaymentCode);
     }
     final void payingBill(){
-        getePaymentCode(prevRead, currentRead);
+        generateEPaymentCode(prevRead, currentRead);
         payBill();
         printBill();
     }
