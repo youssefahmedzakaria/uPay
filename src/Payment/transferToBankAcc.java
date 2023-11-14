@@ -8,8 +8,8 @@ public class transferToBankAcc extends Transferrations {
     private ArrayList<BankUser> listOfBankUser;
 
     // Constructor for Payment.BankTransactions class
-    public transferToBankAcc(Database database, BankUser user, double amount) {
-        super(database, user, amount);
+    public transferToBankAcc(Database database, BankUser user) {
+        super(database, user);
         this.listOfBankUser = database.getListofBankUser();
     }
     @Override
@@ -23,6 +23,8 @@ public class transferToBankAcc extends Transferrations {
             int pin = sc.nextInt();
             if (pin == user.getPin()) {
                 if(bank.checkBalance()){
+                    System.out.println("Enter amount you want to transfer: ");
+                    double amount = sc.nextDouble();
                 if (user.inquireBalance() >= amount) {
                     user.setNewBalance(user.inquireBalance() - amount);
                     for (BankUser bankUser : listOfBankUser) {
@@ -50,7 +52,7 @@ public class transferToBankAcc extends Transferrations {
         //Register register = new Register(database);
         //register.verifyRegister();
         User user = new BankUser("username", "password", 123456789, 1234, "bank", "123456789", "12/12/2020", "123456789", new Bank("bank", 100000));
-        Transferrations bankTransfer = new transferToBankAcc(database, (BankUser) user, 100);
+        Transferrations bankTransfer = new transferToBankAcc(database, (BankUser) user);
         bankTransfer.transfer();
     }
 }

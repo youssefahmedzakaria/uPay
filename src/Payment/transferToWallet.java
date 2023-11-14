@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class transferToWallet extends Transferrations {
     private ArrayList<WalletUser> listOfWalletUser;
 
-    transferToWallet(Database database, User user, double amount) {
-        super(database, user, amount);
+    transferToWallet(Database database, User user) {
+        super(database, user);
         this.listOfWalletUser = database.getListofWalletUser();
 
     }
@@ -34,6 +34,8 @@ public class transferToWallet extends Transferrations {
             System.out.println("Enter Your Pin: ");
             int pin = sc.nextInt();
             if (pin == user.getPin()) {
+                System.out.println("Enter amount you want to transfer: ");
+                double amount = sc.nextDouble();
                 if (bank.checkBalance() || walletProvider.checkBalance()) {
                     if (user.inquireBalance() >= amount) {
                         user.setNewBalance(user.inquireBalance() - amount);
@@ -60,7 +62,7 @@ public class transferToWallet extends Transferrations {
      Database database = new Database();
      WalletProvider w = new MobileWallet(10000, "mobileWallet", "vodafone");
      User user = new WalletUser("username", "password", 01123345565, 1234, "wallet",w);
-     Transferrations t = new transferToWallet(database, user, 100);
+     Transferrations t = new transferToWallet(database, user);
      t.transfer();
     }
 }

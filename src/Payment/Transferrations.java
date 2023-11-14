@@ -8,12 +8,10 @@ public abstract class Transferrations {
     protected WalletProvider walletProvider;
     protected Bank bank;
     protected User user;
-    protected double amount;
 
-    public Transferrations(Database database, User user, double amount){
+    public Transferrations(Database database, User user){
 
         this.user = user;
-        this.amount = amount;
     }
     public abstract void transfer();
 }

@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class transferToInstapayAcc extends Transferrations {
     private ArrayList<User> users;
 
-    public transferToInstapayAcc(Database database, User user, double amount) {
-        super(database, user, amount);
+    public transferToInstapayAcc(Database database, User user) {
+        super(database, user);
         this.users = database.getListofUser();
     }
 
@@ -23,6 +23,8 @@ public class transferToInstapayAcc extends Transferrations {
                 int pin = sc.nextInt();
                 if (pin == user.getPin()) {
                     if (bank.checkBalance() || walletProvider.checkBalance()) {
+                        System.out.println("Enter amount you want to transfer: ");
+                        double amount = sc.nextDouble();
                         if (this.user.inquireBalance() >= amount) {
                             this.user.setNewBalance(this.user.inquireBalance() - amount);
                             user.setNewBalance(user.inquireBalance() + amount);
