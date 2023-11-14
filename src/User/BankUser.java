@@ -29,7 +29,7 @@ public class BankUser extends User {
 
     public String getCardNum() {
 
-        return cardNum;
+        return this.cardNum != null ? this.cardNum : "";
     }
 
     public void setExpiryDate(String expiryDate) {

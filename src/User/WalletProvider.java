@@ -3,10 +3,13 @@ package User;
 public abstract class WalletProvider {
     private double balance;
     private String providerType;
+    private String providerName;
 
-    public WalletProvider(double balance, String providerType) {
+
+    public WalletProvider(double balance, String providerType, String providerName) {
         this.balance = balance;
         this.providerType = providerType;
+        this.providerName=providerName;
     }
 
     public WalletProvider() {
@@ -30,6 +33,15 @@ public abstract class WalletProvider {
 
     public String getProviderType() {
         return providerType;
+    }
+
+    public void setProviderName(String providerName) {
+
+        this.providerName = providerName;
+    }
+
+    public String getProviderName() {
+        return providerName;
     }
 
     public abstract boolean validateAPI(String API);

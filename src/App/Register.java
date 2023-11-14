@@ -6,16 +6,22 @@ import java.util.Scanner;
 import User.*;
 import Payment.*;
 
+import javax.print.attribute.standard.JobName;
 import javax.xml.crypto.Data;
 import java.util.Random;
 
 
 public class Register {
     private ArrayList<User> listOfRegisteredUser;
+    private ArrayList<BankUser> listOfBankUser;
+    private ArrayList<WalletUser>listOfWalletUser;
     public OTPConfirmation otp;
 
     public Register(Database database) {
         this.listOfRegisteredUser = database.getListofUser();
+        this.listOfBankUser = database.getListofBankUser();
+        this.listOfWalletUser = database.getListofWalletUser();
+
         this.otp = new OTPConfirmation();
     }
 
@@ -56,23 +62,35 @@ public class Register {
 
 
         //Phone Check
+        boolean isPhoneValid=true;
+
         System.out.println("Enter your phone number");
         String phone;
+        int phoneNumber;
         do {
+            isPhoneValid=true;
             phone = in.nextLine();
+            phoneNumber = Integer.parseInt(phone);
             in.nextLine();
 
-            isValid = isPhoneValid(phone);
-            if (!isValid)
-                System.out.println("Invalid phone number, Try Again!");
+            isPhoneValid = isPhoneValid(phone); //check if code matches regex and returns true
+            if (isPhoneValid){
+                for (User currentUser:listOfRegisteredUser) {
+                    if (phoneNumber==currentUser.getPhoneNum()) {
+                        System.out.println("The phone number you entered is already taken, Try again!");
+                        isPhoneValid = false;
+                    }
+                }
+            }else{
+                System.out.println("Invalid input, Try Again!");
+            }
+        } while (!isPhoneValid);
 
-        } while (!isValid);
         System.out.println("Phone number is added successfully");
-        int phoneNumber = Integer.parseInt(phone);
 
 
         //PIN Check
-        boolean isPinValid =true;
+        boolean isPinValid = true;
         System.out.println("Enter your PIN");
         String PIN;
         do {
@@ -91,24 +109,34 @@ public class Register {
 
         //Account Type Check
         System.out.println("Choose your account type\n1-Bank Account\n2-Wallet Account");
-        int choose = in.nextInt();
-        in.nextLine();
+        boolean validInput = true;
+        do {
+            validInput=true;
+            int choose = in.nextInt();
+            in.nextLine();
 
-        if (choose == 1) {
-            BankUser bankUser = new BankUser(user, pass, phoneNumber, pin, "Bank");
-            BankUser updatedBankUser=validateBankUser(bankUser);
+            if (choose == 1) {
+                BankUser bankUser = new BankUser(user, pass, phoneNumber, pin, "Bank");
+                BankUser updatedBankUser = validateBankUser(bankUser);
 
-            listOfRegisteredUser.add(updatedBankUser);
-            //database.addUser(updatedBankUser);
-            in.close();
+                listOfRegisteredUser.add(updatedBankUser);
+                listOfBankUser.add(updatedBankUser);
+                return true;
 
-        } else if (choose == 2) {
-            WalletUser walletUser = new WalletUser(user, pass, phoneNumber, pin, "Wallet");
-            validateWalletUser(walletUser);
-        }
+            } else if (choose == 2) {
+                WalletUser walletUser = new WalletUser(user, pass, phoneNumber, pin, "Wallet");
+                WalletUser updatedWalletUser = validateWalletUser(walletUser);
 
+                listOfRegisteredUser.add(updatedWalletUser);
+                listOfWalletUser.add(updatedWalletUser);
+                return true;
+            }else {
+                System.out.println("Invalid input, Try Again!");
+                validInput=false;
+            }
+        }while (!validInput);
 
-        return false;
+            return false;
     }
 
     private static boolean isPasswordValid(String password) {
@@ -133,10 +161,12 @@ public class Register {
     public boolean isPhoneValid(String phone) {
         String regex = "^(010|011|012|015)\\d{8}$";
 
-        if (phone.matches(regex))
+        if (phone.matches(regex)) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     public BankUser validateBankUser(BankUser user) {
@@ -149,7 +179,6 @@ public class Register {
             in = new Scanner(System.in);
             int choose = in.nextInt();
             in.nextLine();
-
 
             if (choose == 1)
                 user.bank.setBankName("NBE");
@@ -179,14 +208,23 @@ public class Register {
                 isCardNumValid = false;
                 System.out.println("Wrong input, Try Again!");
             }
+
+            for(BankUser bankUsers:listOfBankUser){
+                if (bankUsers.getCardNum().equals(cardNum)) {
+                    isCardNumValid = false;
+                    System.out.println("The card number you entered is already taken");
+                    }
+            }
         } while (!isCardNumValid);
+        user.setCardNum(cardNum);
 
         //Expiry Date Check
         System.out.println("Enter your card's expiry date ex:MM/YY 'add the slash'");
+        String expiryDate;
         boolean isDateValid = true;
         do {
             isDateValid = true;
-            String expiryDate = in.nextLine();
+            expiryDate = in.nextLine();
             in.nextLine();
             String expiryDateRegex = "^(0[1-9]|1[0-2])/\\d{2}$";
 
@@ -195,13 +233,14 @@ public class Register {
                 System.out.println("Wrong input, Try Again!");
             }
         } while (!isDateValid);
+        user.setExpiryDate(expiryDate);
 
         //Account Number Check
         System.out.println("Enter your bank account number (it must be 10 numbers):");
+        String accountNum;
         boolean isAccountNumValid = true;
-
         do {
-            String accountNum = in.nextLine();
+            accountNum = in.nextLine();
             in.nextLine();
 
             String bankAccountRegex = "^\\d{10}$";
@@ -212,8 +251,17 @@ public class Register {
             } else {
                 isAccountNumValid = true;
             }
+
+            for(BankUser bankUsers:listOfBankUser){
+                if (bankUsers.getAccountNum().equals(accountNum)) {
+                    isAccountNumValid = false;
+                    System.out.println("The account number you entered is already taken");
+                }
+            }
+
         } while (!isAccountNumValid);
         System.out.println("Your card is added successfully!");
+        user.setAccountNum(accountNum);
 
         //Balance Check
         //generates random user balance between 10000 and 20000
@@ -222,15 +270,51 @@ public class Register {
         user.bank.setBalance(randomBalance);
 
         validateOTP();
-        in.nextLine();
-        in.close();
 
         System.out.println("Your InstaPay account is created successfully!");
         return user;
     }
 
 
-    public void validateWalletUser(WalletUser user) {
+    public WalletUser validateWalletUser(WalletUser user) {
+        Scanner in=new Scanner(System.in);
+
+        //Balance Check
+        //generates random user balance between 10000 and 20000
+        Random random = new Random();
+        float randomBalance = 10000 + random.nextFloat() * (20000 - 10000);
+        float userBalance=randomBalance;
+
+//        user.walletProvider.setBalance(randomBalance);
+
+        //Wallet Provider
+        System.out.println("Choose your Wallet Provider:");
+        System.out.println("1-Mobile Wallet (Vodafone Cash)");
+        System.out.println("2-Bank Wallet (EGBank)");
+        System.out.println("3-E-Payment Wallet (Telda)");
+
+        boolean isWalletValid=true;
+        int choose;
+        do {
+            isWalletValid=true;
+            choose=in.nextInt();
+            if (choose==1){
+                user.walletProvider=new MobileWallet(userBalance,"MobileWallet", "VodafoneCash");
+            }else if (choose==2){
+                user.walletProvider=new BankWallet(userBalance,"BankWallet", "EGBank");
+            }else if (choose==3){
+                user.walletProvider=new ePaymentWallet(userBalance,"E-PaymentWallet", "Telda");
+            }else {
+                System.out.println("Wrong input, Try Again!");
+                isWalletValid=false;
+            }
+        }while (!isWalletValid);
+
+
+        validateOTP();
+
+        System.out.println("Your InstaPay account is created successfully!");
+        return user;
     }
 
     public boolean validateOTP() {
@@ -261,16 +345,28 @@ public class Register {
 public static void main(String[] args) {
         Database database=new Database();
         Register register=new Register(database);
-        Register register1=new Register(database);
+
+        register.verifyRegister();
+        database.printUsers();
+    System.out.println(database.getListofUser().size());
 
         register.verifyRegister();
         database.printUsers();
 
-        register1.verifyRegister();
-        database.printUsers();
+//    register.verifyRegister();
+//    database.printUsers();
+//
+//    register.verifyRegister();
+//    database.printUsers();
+
+    System.out.println("size of registered users "+database.getListofUser().size());
+    System.out.println("size of registered bank users "+database.getListofBankUser().size());
+    System.out.println("size of registered wallet users "+database.getListofBankUser().size());
 
 
-    }
+
+
+}
 
 
 }

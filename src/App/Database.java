@@ -6,9 +6,23 @@ import Payment.*;
 
 public class Database {
     private static ArrayList<User> listofUser;
+    private static ArrayList<BankUser> listOfBankUser;
+    private static ArrayList<WalletUser>listOfWalletUser;
 
     public Database(){
         this.listofUser=new ArrayList();
+        this.listOfBankUser = new ArrayList();
+        this.listOfWalletUser = new ArrayList();
+
+        for (User regUser : listofUser) {
+            if (regUser instanceof BankUser) {
+                BankUser bankUser = (BankUser) regUser;
+                listOfBankUser.add(bankUser);
+            } else if (regUser instanceof WalletUser) {
+                WalletUser walletUser = (WalletUser) regUser;
+                listOfWalletUser.add(walletUser);
+            }
+        }
     }
 
     public void addUser(User user){
@@ -22,6 +36,14 @@ public class Database {
     public ArrayList<User> getListofUser(){
         return this.listofUser;
     }
+    public ArrayList<BankUser> getListofBankUser(){
+        return this.listOfBankUser;
+    }
+    public ArrayList<WalletUser> getListofWalletUser(){
+        return this.listOfWalletUser;
+    }
+
+
 
     public void printUsers(){
         for (User user : listofUser){
