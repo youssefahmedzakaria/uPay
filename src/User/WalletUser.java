@@ -8,6 +8,10 @@ public class WalletUser extends User {
         this.walletProvider = walletProvider;
     }
 
+    public WalletUser(String username, String password, int phoneNum, int pin, String accountType){
+        super(username, password, phoneNum, pin, accountType);
+    }
+
 
     @Override
     public void changePIN(int newPin) {

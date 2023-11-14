@@ -5,7 +5,7 @@ public class BankUser extends User {
     private String expiryDate;
     private String accountNum;
 
-    Bank bank;
+    public Bank bank;
 
     public BankUser(String username, String passsword, int phoneNum, int pin, String accountType, String cardNum, String expiryDate, String accountNum, Bank bank) {
         super(username, passsword, phoneNum, pin, accountType);
@@ -14,6 +14,11 @@ public class BankUser extends User {
         this.accountNum = accountNum;
         this.bank = bank;
     }
+    public BankUser(String username, String passsword, int phoneNum, int pin, String accountType){
+        super(username, passsword, phoneNum, pin, accountType);
+        bank=new Bank();
+    }
+
 
 
 
