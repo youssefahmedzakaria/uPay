@@ -88,10 +88,11 @@ public class UI {
                 TransferToBankAcc transferToBankAcc = new TransferToBankAcc(database, bankUser);
                 transferToBankAcc.transfer();
             } else if (choose == 2) {
-                TransferToWallet transferToWallet = new TransferToWallet(database, currentUser);
+                TransferToWallet transferToWallet = new bankUserToWallet(database, currentUser);
                 transferToWallet.transfer();
             } else if (choose == 3) {
-                TransferToInstapayAcc transferToInstapayAcc = new TransferToInstapayAcc(database, currentUser);
+                BankUser bankUser = (BankUser) currentUser;
+                TransferToInstaPayAcc transferToInstapayAcc = new BankUserToInstaPay(database, bankUser);
                 transferToInstapayAcc.transfer();
             } else if (choose == 4) {
                 billsMenu();
@@ -109,32 +110,32 @@ public class UI {
 
     public void walletUserMenu() {
         Scanner in=new Scanner(System.in);
-
         int choose;
         do {
-            System.out.println("-------------------------------");
-            System.out.println("1-Transfer to Wallet");
-            System.out.println("2-Transfer to InstaPay Account");
-            System.out.println("3-Pay Bills");
-            System.out.println("4-Inquire Balance");
-            System.out.println("5-Log Out");
-            choose = in.nextInt();
+                System.out.println("-------------------------------");
+                System.out.println("1-Transfer to Wallet");
+                System.out.println("2-Transfer to InstaPay Account");
+                System.out.println("3-Pay Bills");
+                System.out.println("4-Inquire Balance");
+                System.out.println("5-Log Out");
+                choose = in.nextInt();
 
-
-            if (choose == 1) {
-                TransferToWallet transferToWallet = new TransferToWallet(database, currentUser);
-                transferToWallet.transfer();
-            } else if (choose == 2) {
-                TransferToInstapayAcc transferToInstapayAcc = new TransferToInstapayAcc(database, currentUser);
-                transferToInstapayAcc.transfer();
-            } else if (choose == 3) {
-                billsMenu();
-            } else if (choose == 4) {
-                WalletUser walletUser = (WalletUser) currentUser;
-                System.out.println("Your balance is : " + walletUser.inquireBalance() + " L.E");
-            } else if (choose == 5) {
-                this.currentUser = null;
-            }
+                if (choose == 1) {
+                    WalletUser walletUser = (WalletUser) currentUser;
+                    TransferToWallet transferToWallet = new walletuserToWallet(database, currentUser);
+                    transferToWallet.transfer();
+                } else if (choose == 2) {
+                    WalletUser walletUser = (WalletUser) currentUser;
+                    TransferToInstaPayAcc transferToInstapayAcc = new WalletUserToInstapay(database, currentUser);
+                    transferToInstapayAcc.transfer();
+                } else if (choose == 3) {
+                    billsMenu();
+                } else if (choose == 4) {
+                    WalletUser walletUser = (WalletUser) currentUser;
+                    System.out.println("Your balance is : " + walletUser.inquireBalance() + " L.E");
+                } else if (choose == 5) {
+                    this.currentUser = null;
+                }
         }while (choose!=5);
     }
 
@@ -146,19 +147,38 @@ public class UI {
         choose = in.nextInt();
 
         if (choose == 1) {
-            Bills gasBill = new GasBill(currentUser);
-            gasBill.payingBill();
+            if(currentUser instanceof  BankUser) {
+                BankUser bankUser = (BankUser) currentUser;
+                Bills gasBill = new bankUserGasBill(bankUser);
+                gasBill.payingBill();
+            }else if(currentUser instanceof  WalletUser){
+                WalletUser walletUser = (WalletUser) currentUser;
+                Bills gasBill = new walletUserGasBill(walletUser);
+                gasBill.payingBill();
+            }
         } else if (choose == 2) {
-            Bills waterBill = new WaterBill(currentUser);
-            waterBill.payingBill();
+            if(currentUser instanceof  BankUser) {
+                BankUser bankUser = (BankUser) currentUser;
+                Bills waterBill = new bankUserWaterBill(bankUser);
+                waterBill.payingBill();
+            }else if(currentUser instanceof  WalletUser){
+                WalletUser walletUser = (WalletUser) currentUser;
+                Bills waterBill = new walletUserWaterBill(walletUser);
+                waterBill.payingBill();
+            }
         } else if (choose == 3) {
-            Bills electricBill = new ElectricityBill(currentUser);
-            electricBill.payingBill();
+            if(currentUser instanceof  BankUser) {
+                BankUser bankUser = (BankUser) currentUser;
+                Bills elecBill = new bankUserElecBill(bankUser);
+                elecBill.payingBill();
+            }else if(currentUser instanceof  WalletUser){
+                WalletUser walletUser = (WalletUser) currentUser;
+                Bills elecBill = new walletUserElecBill(walletUser);
+                elecBill.payingBill();
+            }
         }
     }
-
     public User getCurrentUser(){
         return currentUser;
     }
-
 }

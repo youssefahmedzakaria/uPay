@@ -1,11 +1,8 @@
 package Payment;
 
-import java.util.Date;
-import java.util.Scanner;
-
 import User.*;
 
-public class GasBill extends Bills {
+public abstract class GasBill extends Bills {
     private double consumedGas;
 
     public GasBill( User user) {
@@ -19,56 +16,4 @@ public class GasBill extends Bills {
     public double getConsumedGas() {
         return consumedGas;
     }
-
-    @Override
-    public void payBill() {
-        // Implementation for paying a gas bill
-        System.out.println("Enter your ePayment code: ");
-        Scanner s = new Scanner(System.in);
-        String ePaymentCode = s.nextLine();
-        double consumedGas = currentRead - prevRead;
-        setConsumedGas(consumedGas);
-        if (ePaymentCode.equals(this.getePaymentCode())) {
-            double bill = this.getConsumedGas() * this.getPrice() + this.getFees();
-            System.out.println("Your gas bill is: " + bill+" L.E");
-            System.out.println("Enter your pin: ");
-            int pin = s.nextInt();
-            if (pin == user.getPin()) {
-                if (user.inquireBalance() >= bill) {
-                    user.setNewBalance(user.inquireBalance() - bill);
-                    System.out.println("Gas Bill Paid Successfully. Your balance is: " + user.inquireBalance()+" L.E");
-                } else {
-                    System.out.println("Your balance is insufficient.");
-                }
-            } else {
-                System.out.println("Invalid Pin");
-            }
-        } else {
-            System.out.println("Invalid ePayment code.");
-        }
-    }
-
-    @Override
-    public void printBill() {
-        // Implementation for printing a gas bill
-        System.out.println("Gas Bill Details: ");
-        System.out.println("Name: " + this.getName());
-        System.out.println("Address: " + this.getAddress());
-        System.out.println("Price: " + this.getPrice());
-        System.out.println("Fees: " + this.getFees());
-        System.out.println("Date: " + this.getDate());
-        System.out.println("Previous Read: " + this.getPrevRead());
-        System.out.println("Current Read: " + this.getCurrentRead());
-        System.out.println("Consumed Gas: " + this.getConsumedGas());
-        System.out.println("ePayment Code: " + this.getePaymentCode());
-    }
 }
-
-
-//    public static void main(String[] args) {
-//        User user = new WalletUser("username", "password", 123456789, 1234, "wallet", new MobileWallet(100000, "Mobile", "vodafone"));
-//        GasBill gasBill = new GasBill("Ahmed", "Cairo", 100, 10, new Date(), 100, 200, 100, user);
-////        gasBill.getePaymentCode(100, 200);
-//        gasBill.payingBill();
-//    }
-//}

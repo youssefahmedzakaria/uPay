@@ -3,6 +3,7 @@ import App.*;
 import User.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class Transferrations {
     protected WalletProvider walletProvider;

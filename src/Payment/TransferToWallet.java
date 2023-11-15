@@ -5,7 +5,7 @@ import App.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TransferToWallet extends Transferrations {
+public abstract class TransferToWallet extends Transferrations {
     private ArrayList<WalletUser> listOfWalletUser;
 
     public TransferToWallet(Database database, User user) {
@@ -67,23 +67,19 @@ public class TransferToWallet extends Transferrations {
                             }
                             System.out.println(amount + " transferred successfully to " + mobileNum + ". Your balance: " + user.inquireBalance());
                         } else {
-                            System.out.println("Your balance is insufficient.");
+                            System.out.println("Your balance is insufficient. Please try again.");
                         }
                     } else {
-                        System.out.println("Invalid Pin");
+                        System.out.println("Invalid Pin. please try again.");
                     }
                 } else {
-                    System.out.println("Invalid mobile number");
+                    System.out.println("Invalid mobile number. Please try again.");
                 }
             }
         }
     }
 
     public static void main(String[] args) {
-     Database database = new Database();
-     WalletProvider w = new MobileWallet(10000, "mobileWallet", "vodafone");
-     User user = new WalletUser("username", "password", 01123345565, 1234, "wallet",w);
-     Transferrations t = new TransferToWallet(database, user);
-     t.transfer();
+
     }
 }
