@@ -10,7 +10,6 @@ public abstract class Transferrations {
     protected User user;
 
     public Transferrations(Database database, User user){
-
         this.user = user;
     }
     public abstract void transfer();

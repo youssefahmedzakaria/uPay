@@ -45,6 +45,14 @@ public class Database {
 
 
 
+    public User getUser(String username){
+        for (User user :listofUser){
+            if (user.getUsername().equals(username))
+                return user;
+        }
+        System.out.println("User is not found");
+        return null;
+    }
     public void printUsers(){
         for (User user : listofUser){
             System.out.println(user.getUsername() +" , " + user.getAccountType()+" Account");

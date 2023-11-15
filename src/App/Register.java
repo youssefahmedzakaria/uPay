@@ -50,13 +50,11 @@ public class Register {
         //Password Check
         System.out.println("Enter your passsword");
         String pass = in.nextLine();
-//        in.nextLine();
         boolean isValid = true;
         do {
             isValid = isPasswordValid(pass);
             if (!isValid) {
                 pass = in.nextLine();
-//                in.nextLine();
             }
         } while (!isValid);
         System.out.println("Password is added successfully");
@@ -269,7 +267,6 @@ public class Register {
         boolean isAccountNumValid = true;
         do {
             accountNum = in.nextLine();
-//            in.nextLine();
 
             String bankAccountRegex = "^\\d{10}$";
 
@@ -364,7 +361,7 @@ public class Register {
             System.out.println("Enter your OTP");
             Scanner in = new Scanner(System.in);
             inputOTP = in.nextLine();
-//            in.nextLine();
+
             if (inputOTP.equals(OTP))
                 return true;
             else {

@@ -1,7 +1,7 @@
 package User;
 
 
-public abstract class User {
+public class User {
     protected String username;
     protected String password;
     protected int phoneNum;
@@ -27,7 +27,7 @@ public abstract class User {
     }
 
 
-    public abstract void changePIN(int newPin);
+    public  void changePIN(int newPin){}; //abstarct
 
     public void setUsername(String username) {
         this.username = username;
@@ -57,9 +57,9 @@ public abstract class User {
         this.phoneNum = phoneNum;
     }
 
-    public abstract double inquireBalance();
+    public  double inquireBalance(){return 0.0;};  //abstract
 
-    public abstract void setNewBalance(double newBalance);
+    public  void setNewBalance(double newBalance){}; //abstract
 
     public int getPhoneNum() {
         return phoneNum;

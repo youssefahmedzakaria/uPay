@@ -9,9 +9,8 @@ import User.*;
 public class ElectricityBill extends Bills {
     private double consumedElectricity;
 
-    public ElectricityBill( String name, String address, float price, float fees, Date date, double prevRead, double currentRead, double consumedElectricity, User user) {
-        super(name, address, price, fees, date, prevRead, currentRead, user);
-        this.consumedElectricity = consumedElectricity;
+    public ElectricityBill(User user) {
+        super(user);
     }
     public void setConsumedElectricity(double consumedElectricity) {this.consumedElectricity = consumedElectricity;}
     @Override
@@ -22,15 +21,15 @@ public class ElectricityBill extends Bills {
         String ePaymentCode = s.nextLine();
         double consumedElectricity = currentRead - prevRead;
         setConsumedElectricity(consumedElectricity);
-        if(ePaymentCode == this.getePaymentCode()){
+        if(ePaymentCode.equals(this.getePaymentCode())){
             double bill = this.getConsumedElectricity() * this.getPrice() + this.getFees();
-            System.out.println("Your electricity bill is: " + bill);
+            System.out.println("Your electricity bill is: " + bill+" L.E");
             System.out.println("Enter your pin: ");
             int pin = s.nextInt();
             if(pin == user.getPin()){
                 if(user.inquireBalance() >= bill ){
                     user.setNewBalance(user.inquireBalance() - bill);
-                    System.out.println("Electricity Bill Paid Successfully. Your balance is: " + user.inquireBalance());
+                    System.out.println("Electricity Bill Paid Successfully. Your balance is: " + user.inquireBalance()+" L.E");
                 }
                 else{
                     System.out.println("Your balance is insufficient.");

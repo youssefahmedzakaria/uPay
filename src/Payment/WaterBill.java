@@ -9,9 +9,8 @@ import User.*;
 public class WaterBill extends Bills {
     private double consumedWater;
 
-    public WaterBill( String name, String address, float price, float fees, Date date, double prevRead, double currentRead, double consumedWater, User user) {
-        super( name, address, price, fees, date, prevRead, currentRead, user);
-        this.consumedWater = consumedWater;
+    public WaterBill( User user) {
+        super(user);
     }
     public void setConsumedWater(double consumedWater) {this.consumedWater = consumedWater;}
 
@@ -19,26 +18,24 @@ public class WaterBill extends Bills {
     public void payBill() {
         // Implementation for paying a water bill
         System.out.println("Enter your ePayment code: ");
-        Scanner s  = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         String ePaymentCode = s.nextLine();
         double consumedWater = currentRead - prevRead;
         setConsumedWater(consumedWater);
-        if(ePaymentCode == this.getePaymentCode()){
+        if (ePaymentCode.equals(this.getePaymentCode())) {
             double bill = this.getConsumedWater() * this.getPrice() + this.getFees();
-            System.out.println("Your Water bill is: " + bill);
+            System.out.println("Your Water bill is: " + bill+" L.E");
             System.out.println("Enter your pin: ");
             int pin = s.nextInt();
-            if(pin == user.getPin()){
-                if(user.inquireBalance() >= bill ){
+            if (pin == user.getPin()) {
+                if (user.inquireBalance() >= bill) {
                     user.setNewBalance(user.inquireBalance() - bill);
-                    System.out.println("Water Bill Paid Successfully. Your balance is: " + user.inquireBalance());
-                }
-                else{
+                    System.out.println("Water Bill Paid Successfully. Your balance is: " + user.inquireBalance()+" L.E");
+                } else {
                     System.out.println("Your balance is insufficient.");
                 }
             }
-        }
-        else{
+        } else {
             System.out.println("Invalid ePayment code.");
         }
     }

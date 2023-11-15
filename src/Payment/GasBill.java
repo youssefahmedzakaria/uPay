@@ -8,9 +8,8 @@ import User.*;
 public class GasBill extends Bills {
     private double consumedGas;
 
-    public GasBill(String name, String address, float price, float fees, Date date, double prevRead, double currentRead, double consumedGas, User user) {
-        super(name, address, price, fees, date, prevRead, currentRead, user);
-        this.consumedGas = consumedGas;
+    public GasBill( User user) {
+        super( user);
     }
 
     public void setConsumedGas(double consumedGas) {
@@ -31,13 +30,13 @@ public class GasBill extends Bills {
         setConsumedGas(consumedGas);
         if (ePaymentCode.equals(this.getePaymentCode())) {
             double bill = this.getConsumedGas() * this.getPrice() + this.getFees();
-            System.out.println("Your gas bill is: " + bill);
+            System.out.println("Your gas bill is: " + bill+" L.E");
             System.out.println("Enter your pin: ");
             int pin = s.nextInt();
             if (pin == user.getPin()) {
                 if (user.inquireBalance() >= bill) {
                     user.setNewBalance(user.inquireBalance() - bill);
-                    System.out.println("Gas Bill Paid Successfully. Your balance is: " + user.inquireBalance());
+                    System.out.println("Gas Bill Paid Successfully. Your balance is: " + user.inquireBalance()+" L.E");
                 } else {
                     System.out.println("Your balance is insufficient.");
                 }
@@ -63,12 +62,13 @@ public class GasBill extends Bills {
         System.out.println("Consumed Gas: " + this.getConsumedGas());
         System.out.println("ePayment Code: " + this.getePaymentCode());
     }
-
-
-    public static void main(String[] args) {
-        User user = new WalletUser("username", "password", 123456789, 1234, "wallet", new MobileWallet(100000, "Mobile", "vodafone"));
-        GasBill gasBill = new GasBill("Ahmed", "Cairo", 100, 10, new Date(), 100, 200, 100, user);
-//        gasBill.getePaymentCode(100, 200);
-        gasBill.payingBill();
-    }
 }
+
+
+//    public static void main(String[] args) {
+//        User user = new WalletUser("username", "password", 123456789, 1234, "wallet", new MobileWallet(100000, "Mobile", "vodafone"));
+//        GasBill gasBill = new GasBill("Ahmed", "Cairo", 100, 10, new Date(), 100, 200, 100, user);
+////        gasBill.getePaymentCode(100, 200);
+//        gasBill.payingBill();
+//    }
+//}

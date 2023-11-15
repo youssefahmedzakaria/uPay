@@ -1,24 +1,27 @@
 package Payment;
 
 import java.util.Date;
+import java.util.Random;
+import java.util.Scanner;
+
 import User.*;
 
 public abstract class Bills {
     protected String ePaymentCode;
     protected String name;
     protected String address;
-    protected float price;
-    protected float fees;
+    protected float price; //
+    protected float fees;  //
     protected Date date;
-    protected double prevRead;
-    protected double currentRead;
+    protected double prevRead; //
+    protected double currentRead; //
     protected User user;
-    public Bills( String name, String address, float price, float fees, Date date, double prevRead, double currentRead, User user) {
-        this.name = name;
-        this.address = address;
-        this.price = price;
-        this.fees = fees;
-        this.date = date;
+    public Bills(User user) {
+        this.name = "Alaa Ahmed El-Gendy";
+        this.address = "15 May City - Helwan";
+        this.price = 5.25f;
+        this.fees = 7;
+        this.date = new Date();
         this.prevRead = prevRead;
         this.currentRead = currentRead;
         this.user = user;
@@ -40,7 +43,24 @@ public abstract class Bills {
     public double getPrevRead() {return prevRead;}
     public double getCurrentRead() {return currentRead;}
 
-    public void generateEPaymentCode(double prevRead, double currentRead){
+    public void generateEPaymentCode(){
+        Scanner in=new Scanner(System.in);
+        double prevRead,currentRead;
+        boolean isValid;
+        do {
+            isValid=true;
+            System.out.println("Enter your previous read");
+            prevRead = in.nextFloat();
+            System.out.println("Enter your current read");
+            currentRead = in.nextFloat();
+            if(currentRead<prevRead){
+                isValid=false;
+                System.out.println("Your current read must be greater than your previous read, Enter valid input");
+            }
+        }while (!isValid);
+        this.setCurrentRead(currentRead);
+        this.setPrevRead(prevRead);
+
         // Implementation for getting an ePayment code
         setPrevRead(prevRead);
         setCurrentRead(currentRead);
@@ -48,8 +68,8 @@ public abstract class Bills {
         setePaymentCode(ePaymentCode);
         System.out.println("ePayment code: " + ePaymentCode);
     }
-    final void payingBill(){
-        generateEPaymentCode(prevRead, currentRead);
+    public final void payingBill(){
+        generateEPaymentCode();
         payBill();
         printBill();
     }
